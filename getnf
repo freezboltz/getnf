@@ -8,7 +8,7 @@ distDir="$HOME/.local/share/fonts"
 downDir="$HOME/Downloads/NerdFonts"
 os=$(uname)
 
-[[ "$os" != "Linux" ]] && echo "$os OS is not supported Exiting..."; exit
+[[ "$os" != "Linux" ]] && echo "$os OS is not supported Exiting..." && exit
 
 # help message
 usage() {
@@ -50,6 +50,8 @@ release=$(curl --silent "$nerdfontsrepo/releases/latest" | \
 
 # use fzf to select the fonts to be installed
 listFonts=$(printf '%s\n' "${nerdFonts[@]}" | fzf -m)
+
+[[ -n $listFonts ]] || echo "No font is chosen" && exit
 
 #loop over the selected fonts in listFonts, download and install them
 for i in $listFonts; do
