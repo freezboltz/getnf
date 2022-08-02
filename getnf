@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 #defining variables
 nerdfontsrepo='https://api.github.com/repos/ryanoasis/nerd-fonts'
@@ -7,6 +7,8 @@ keepArchives="False"
 distDir="$HOME/.local/share/fonts"
 downDir="$HOME/Downloads/NerdFonts"
 os=$(uname)
+
+[[ "$os" != "Linux" ]] && echo "$os OS is not supported Exiting..."; exit
 
 # help message
 usage() {
@@ -33,8 +35,8 @@ if [[ "$os" == 'Darwin' ]]; then
 fi
 
 # Check if the distDir and downDir exists, if it doesn't, create it
-[ -d "$distDir" ] || mkdir -p "$distDir" && echo "Fonts Directory exists, good" 
-[ -d "$downDir" ] || mkdir -p "$downDir" && echo "Download Fonts Directory exists, good" 
+[ -d "$distDir" ] || mkdir -p "$distDir" && echo "Fonts Directory exists, good"
+[ -d "$downDir" ] || mkdir -p "$downDir" && echo "Download Fonts Directory exists, good"
 
 # get font names
 nerdFonts=$(curl --silent "$nerdfontsrepo/contents/patched-fonts?ref=master" | \
